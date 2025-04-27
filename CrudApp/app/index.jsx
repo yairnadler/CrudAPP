@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { Colors } from "@/constants/Colors";
 import { data } from "@/data/todos";
 import React, { useState } from "react";
@@ -26,15 +27,15 @@ export default function Index() {
       console.log("empty todo won't be added!");
       return;
     }
-   
+
     const todo = {
       id: count + 1,
       title: input,
       completed: false,
     };
-    setTodos((prevTodos) => [todo,...prevTodos]);
+    setTodos((prevTodos) => [todo, ...prevTodos]);
     setText("");
-    setCount(count + 1)
+    setCount(count + 1);
     console.log(`${input} has been added`);
   };
 
@@ -49,8 +50,8 @@ export default function Index() {
   };
 
   const handleDeleteItemClicked = (item) => {
-    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== item.id));
-    console.log(`${item.title} has been removed from your todo list`)
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== item.id));
+    console.log(`${item.title} has been removed from your todo list`);
   };
 
   return (
@@ -69,6 +70,7 @@ export default function Index() {
         theme={theme}
         colorScheme={colorScheme}
       />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </Container>
   );
 }
@@ -77,7 +79,7 @@ function createStyles(theme, colorScheme) {
   return StyleSheet.create({
     contentContainer: {
       flex: 1,
-      paddingTop: 10,
+      paddingTop: 30,
       paddingBottom: 20,
       paddingHorizontal: 12,
       backgroundColor: theme.background,
