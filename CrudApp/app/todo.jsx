@@ -1,8 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
-export default function TodoDetail({ route, navigation }) {
-  const { todo } = route.params; 
+export default function TodoDetail() {
+  const route = useRoute();
+  const { todo } = route.params;
+
+  if (!todo) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Todo Not Found</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, View, StyleSheet } from "react-native";
 import TodoItem from "@/components/TodoItem";
+import Animated, {LinearTransition} from 'react-native-reanimated'
 
 export default function TodoList({
   todos,
@@ -13,12 +14,14 @@ export default function TodoList({
   const separatorComp = <View style={styles.separator} />;
 
   return (
-    <FlatList
+    <Animated.FlatList
       data={todos}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
       ItemSeparatorComponent={separatorComp}
+      itemLayoutAnimation={LinearTransition}
+      keyboardDismissMode='on-drag'
       renderItem={({ item }) => (
         <TodoItem
           item={item}

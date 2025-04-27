@@ -18,7 +18,7 @@ export default function Index() {
   const Container = Platform.OS === "web" ? ScrollView : SafeAreaView;
 
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState(data);
+  const [todos, setTodos] = useState(data.sort((a, b) => b.id - a.id));
   const [count, setCount] = useState(todos.length);
 
   const handleAddTodo = (input) => {
@@ -32,7 +32,7 @@ export default function Index() {
       title: input,
       completed: false,
     };
-    setTodos((prevTodos) => [...prevTodos, todo]);
+    setTodos((prevTodos) => [todo,...prevTodos]);
     setText("");
     setCount(count + 1)
     console.log(`${input} has been added`);
