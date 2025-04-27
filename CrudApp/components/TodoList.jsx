@@ -1,7 +1,7 @@
 import React from "react";
-import { FlatList, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import Animated, { LinearTransition } from "react-native-reanimated";
 import TodoItem from "@/components/TodoItem";
-import Animated, {LinearTransition} from 'react-native-reanimated'
 
 export default function TodoList({
   todos,
@@ -21,7 +21,7 @@ export default function TodoList({
       contentContainerStyle={styles.contentContainer}
       ItemSeparatorComponent={separatorComp}
       itemLayoutAnimation={LinearTransition}
-      keyboardDismissMode='on-drag'
+      keyboardDismissMode="on-drag"
       renderItem={({ item }) => (
         <TodoItem
           item={item}

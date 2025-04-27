@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import { Inter_500Medium, useFonts } from "@expo-google-fonts/inter";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TodoItem({
@@ -10,15 +11,24 @@ export default function TodoItem({
   theme,
   colorScheme,
 }) {
-  const navigation = useNavigation();
+  const router = useRouter();
+
+  const [loaded, error] = useFonts({
+    Inter_500Medium,
+  });
+
+  if (!loaded && !error) {
+    return null;
+  }
+
   const styles = createStyles(theme, colorScheme);
 
-  const handlePress = () => {
-    navigation.navigate("TodoDetail", { todo: item });
+  const handlePress = (id) => {
+    router.push(`/todos/${id}`);
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={() => handlePress(item.id)}>
       <View style={styles.row}>
         <Text
           style={[styles.listItemText, item.completed && styles.strikeThrough]}
@@ -68,6 +78,7 @@ function createStyles(theme, colorScheme) {
     listItemText: {
       flex: 1,
       fontSize: 18,
+      fontFamily: Inter_500Medium,
       marginVertical: "auto",
       marginLeft: 15,
       color: theme.text,
