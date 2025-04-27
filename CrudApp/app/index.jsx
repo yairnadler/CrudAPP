@@ -8,39 +8,39 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { Colors } from "@/constants/Colors";
 import { data } from "@/data/todos";
-import React, { useState, useEffect, useContext  } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import React, { useState, useEffect, useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemeContext } from "@/context/ThemeContext";
 import TodoInput from "@/components/TodoInput";
 import TodoList from "@/components/TodoList";
 
 export default function Index() {
-  const { colorScheme, setColorScheme, theme } = useContext(ThemeContext)
+  const { colorScheme, setColorScheme, theme } = useContext(ThemeContext);
   const styles = createStyles(theme, colorScheme);
   const Container = Platform.OS === "web" ? ScrollView : SafeAreaView;
 
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState(data.sort((a, b) => b.id - a.id));
+  const [todos, setTodos] = useState([]);
   const [count, setCount] = useState(todos.length);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jsonValue = await AsyncStorage.getItem("TodoApp")
-        const storageTodos = jsonValue != null ? JSON.parse(jsonValue) : null
+        const jsonValue = await AsyncStorage.getItem("TodoApp");
+        const storageTodos = jsonValue != null ? JSON.parse(jsonValue) : null;
 
         if (storageTodos && storageTodos.length) {
-          setTodos(storageTodos.sort((a, b) => b.id - a.id))
+          setTodos(storageTodos.sort((a, b) => b.id - a.id));
         } else {
-          setTodos(data.sort((a, b) => b.id - a.id))
+          setTodos(data.sort((a, b) => b.id - a.id));
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
 
-    fetchData()
-  }, [data])
+    fetchData();
+  }, [data]);
 
   if (!data) {
     return null;
@@ -112,7 +112,7 @@ export default function Index() {
   );
 }
 
-function createStyles(theme, colorScheme) {
+function createStyles(theme) {
   return StyleSheet.create({
     contentContainer: {
       flex: 1,

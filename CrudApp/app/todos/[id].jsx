@@ -26,8 +26,8 @@ export default function EditScreen() {
         const storageTodos = jsonValue != null ? JSON.parse(jsonValue) : null;
 
         if (storageTodos && storageTodos.length) {
-          const myTodo = storageTodos.find((todo) => todo.id.toString() === id);
-          setTodo(myTodo);
+          const myTodo = storageTodos.find((todo) => todo.id === id);
+          setTodo(myTodo || {});
         }
       } catch (e) {
         console.error(e);
@@ -84,10 +84,10 @@ export default function EditScreen() {
           style={[styles.button, { backgroundColor: "red" }]}
           onPress={() => router.push("/")}
         >
-          <Text style={[styles.buttonText, {color: "white"}]}>Cancel</Text>
+          <Text style={[styles.buttonText, { color: "white" }]}>Cancel</Text>
         </Pressable>
       </View>
-      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </SafeAreaView>
   );
 }

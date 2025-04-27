@@ -10,7 +10,6 @@ export default function TodoInput({
   theme,
   colorScheme,
 }) {
-
   const styles = createStyles(theme, colorScheme);
 
   return (
