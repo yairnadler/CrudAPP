@@ -6,9 +6,9 @@ export const Colors = {
     button: 'royalblue',
   },
   dark: {
-    text: 'white',
+    text: 'papayawhip',
     background: 'black',
     icon: 'red',
-    button: 'white',
+    button: 'papayawhip',
   },
 };

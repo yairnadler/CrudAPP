@@ -26,8 +26,8 @@ export default function EditScreen() {
         const storageTodos = jsonValue != null ? JSON.parse(jsonValue) : null;
 
         if (storageTodos && storageTodos.length) {
-          const myTodo = storageTodos.find((todo) => todo.id === id);
-          setTodo(myTodo || {});
+          const myTodo = storageTodos.find((todo) => todo.id.toString() === id);
+          setTodo(myTodo);
         }
       } catch (e) {
         console.error(e);
@@ -103,7 +103,7 @@ function createStyles(theme, colorScheme) {
     inputText: {
       flexWrap: "wrap",
       width: "90%",
-      fontFamily: Inter_500Medium,
+      fontFamily: "Inter_500Medium",
       fontSize: 24,
       fontWeight: "bold",
       borderWidth: 1.5,

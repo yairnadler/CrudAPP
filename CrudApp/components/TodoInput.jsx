@@ -10,6 +10,7 @@ export default function TodoInput({
   theme,
   colorScheme,
 }) {
+
   const styles = createStyles(theme, colorScheme);
 
   return (
@@ -18,7 +19,7 @@ export default function TodoInput({
         style={styles.textInput}
         spellCheck={true}
         placeholder="Enter new TODO"
-        placeholderTextColor={"grey"}
+        placeholderTextColor="grey"
         onChangeText={(newText) => setText(newText)}
         value={text}
       />
@@ -53,7 +54,7 @@ function createStyles(theme, colorScheme) {
     textInput: {
       flex: 1,
       fontSize: 18,
-      fontFamily: Inter_500Medium,
+      fontFamily: "Inter_500Medium",
       fontWeight: "bold",
       marginVertical: "auto",
       marginLeft: 15,

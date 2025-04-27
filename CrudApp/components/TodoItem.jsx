@@ -78,7 +78,7 @@ function createStyles(theme, colorScheme) {
     listItemText: {
       flex: 1,
       fontSize: 18,
-      fontFamily: Inter_500Medium,
+      fontFamily: "Inter_500Medium",
       marginVertical: "auto",
       marginLeft: 15,
       color: theme.text,

@@ -21,7 +21,7 @@ export default function Index() {
 
   const [text, setText] = useState("");
   const [todos, setTodos] = useState([]);
-  const [count, setCount] = useState(todos.length);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +31,10 @@ export default function Index() {
 
         if (storageTodos && storageTodos.length) {
           setTodos(storageTodos.sort((a, b) => b.id - a.id));
+          setCount(storageTodos.length)
         } else {
           setTodos(data.sort((a, b) => b.id - a.id));
+          setCount(1)
         }
       } catch (e) {
         console.error(e);
