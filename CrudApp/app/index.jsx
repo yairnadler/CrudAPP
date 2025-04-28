@@ -1,16 +1,17 @@
 import {
   StyleSheet,
-  Appearance,
   Platform,
   ScrollView,
   SafeAreaView,
+  Pressable,
+  View,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Colors } from "@/constants/Colors";
 import { data } from "@/data/todos";
 import React, { useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemeContext } from "@/context/ThemeContext";
+import { Ionicons } from "@expo/vector-icons";
 import TodoInput from "@/components/TodoInput";
 import TodoList from "@/components/TodoList";
 
@@ -31,10 +32,10 @@ export default function Index() {
 
         if (storageTodos && storageTodos.length) {
           setTodos(storageTodos.sort((a, b) => b.id - a.id));
-          setCount(storageTodos.length)
+          setCount(storageTodos.length);
         } else {
           setTodos(data.sort((a, b) => b.id - a.id));
-          setCount(1)
+          setCount(1);
         }
       } catch (e) {
         console.error(e);
@@ -95,6 +96,11 @@ export default function Index() {
 
   return (
     <Container style={styles.contentContainer}>
+      <View style={styles.setThemeRow}>
+        <Pressable onPress={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}>
+          <Ionicons name={colorScheme === "dark" ? "sunny" : "moon"} size={30} color={colorScheme === "dark" ? "papayawhip" : "black"}></Ionicons>
+        </Pressable>
+      </View>
       <TodoInput
         text={text}
         setText={setText}
@@ -114,7 +120,7 @@ export default function Index() {
   );
 }
 
-function createStyles(theme) {
+function createStyles(theme, colorScheme) {
   return StyleSheet.create({
     contentContainer: {
       flex: 1,
@@ -122,6 +128,11 @@ function createStyles(theme) {
       paddingBottom: 20,
       paddingHorizontal: 12,
       backgroundColor: theme.background,
+    },
+    setThemeRow: {
+      marginHorizontal: "auto",
+      marginTop: 10,
+      marginBottom: 10,
     },
   });
 }

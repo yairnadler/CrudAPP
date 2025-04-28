@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Inter_500Medium, useFonts } from "@expo-google-fonts/inter";
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { ThemeContext } from "@/context/ThemeContext";
@@ -59,7 +60,7 @@ export default function EditScreen() {
       } else {
         await AsyncStorage.setItem("TodoApp", JSON.stringify([savedTodo]));
       }
-
+      console.log(`todo updated to -> ${todo.title}`);
       router.push("/");
     } catch (e) {
       console.error(e);
@@ -68,6 +69,19 @@ export default function EditScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.setThemeRow}>
+        <Pressable
+          onPress={() =>
+            setColorScheme(colorScheme === "light" ? "dark" : "light")
+          }
+        >
+          <Ionicons
+            name={colorScheme === "dark" ? "sunny" : "moon"}
+            size={30}
+            color={colorScheme === "dark" ? "papayawhip" : "black"}
+          ></Ionicons>
+        </Pressable>
+      </View>
       <TextInput
         style={styles.inputText}
         multiline={true}
@@ -96,9 +110,13 @@ function createStyles(theme, colorScheme) {
   return StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
       alignItems: "center",
       backgroundColor: theme.background,
+    },
+    setThemeRow: {
+      marginHorizontal: "auto",
+      marginTop: 10,
+      marginBottom: 10,
     },
     inputText: {
       flexWrap: "wrap",
