@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  Alert,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useState, useEffect, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,6 +20,7 @@ import { ThemeContext } from "@/context/ThemeContext";
 export default function EditScreen() {
   const { id } = useLocalSearchParams();
   const [todo, setTodo] = useState({});
+  const [disabled, setDisabled] = useState(true);
   const { colorScheme, setColorScheme, theme } = useContext(ThemeContext);
   const router = useRouter();
 
@@ -45,6 +53,13 @@ export default function EditScreen() {
   const styles = createStyles(theme, colorScheme);
 
   const handleSave = async () => {
+    if (todo.title === "") {
+      // Alert.alert("Empty Todo", "Looks like you forgot to enter a todo", [
+      //   { text: "OK", onPress: () => console.log("OK Pressed") },
+      // ]);
+      console.log("can't update to empty todo")
+      return;
+    }
     try {
       const savedTodo = { ...todo, title: todo.title };
 
@@ -86,12 +101,16 @@ export default function EditScreen() {
         style={styles.inputText}
         multiline={true}
         placeholder="Edit TODO"
-        placeholderTextColor="gray"
+        placeholderTextColor="grey"
         value={todo?.title || ""}
         onChangeText={(text) => setTodo((prev) => ({ ...prev, title: text }))}
       />
       <View style={styles.row}>
-        <Pressable style={styles.button} onPress={() => handleSave()}>
+        <Pressable
+          style={styles.button}
+          // disabled={disabled}
+          onPress={() => handleSave()}
+        >
           <Text style={styles.buttonText}>Save</Text>
         </Pressable>
         <Pressable
@@ -106,7 +125,7 @@ export default function EditScreen() {
   );
 }
 
-function createStyles(theme, colorScheme) {
+function createStyles(theme, colorScheme, disabled) {
   return StyleSheet.create({
     container: {
       flex: 1,
